@@ -8,7 +8,10 @@ public class avio {
     private int tripulants;
     private coordenades coordenades;
     private int autonomia;
-    private int rumb;
+    private coordenades rumb;
 
+    public avio(String matricula, String marca, String model, int tripulants, int autonomia) {
+
+    }
 
 }

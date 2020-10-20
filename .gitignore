@@ -1,3 +1,5 @@
 /.idea/
 *.pdf
 controlaeri.iml
+*.log
+/out/
