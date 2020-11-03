@@ -9,29 +9,28 @@ public class avio {
     private String model;
     private int tripulants;
     private coordenades coordenades;
+    private int alcada;
     private int autonomia;
     private int rumb;
     private int velocitat;
     private int velocitatMaxima;
     private boolean motor;
     private boolean trenAterratge;
-    private int acceleracio;
     private boolean accelerar;
 
-    public avio(String matricula, String marca, String model, int tripulants, int autonomia, int acceleracio, int velocitatMaxima) {
+    public avio(String matricula, String marca, String model, int tripulants, int autonomia) {
 
         this.matricula = matricula;
         this.marca = marca;
         this.model = model;
         this.tripulants = tripulants;
         this.coordenades = new coordenades(100, 100);
+        this.alcada = alcada;
         this.autonomia = autonomia;
         this.rumb = 0;
         this.velocitat = 0;
-        this.velocitatMaxima = velocitatMaxima;
         this.motor = false;
         this.trenAterratge = true;
-        this.acceleracio = acceleracio;
         this.accelerar = false;
 
     }
@@ -50,11 +49,12 @@ public class avio {
     }
 
     // Accelera l'avio
-    public boolean accelerar() {
+    public boolean accelerar(int velocitat) {
         boolean resposta = false;
 
         if (motor) {
             this.accelerar = true;
+            this.velocitat = velocitat;
             resposta = true;
         }
 
@@ -67,49 +67,65 @@ public class avio {
 
         if (motor) {
             this.accelerar = false;
+            this.velocitat = 0;
             resposta = true;
         }
 
         return resposta;
     }
 
-    // Canvia el rumb de l'avio per que agafi alçada
-    public boolean pujar() {
+    // Revisa si l'avio pot agafar alçada
+    public boolean canviarAlcada(int alcada) {
         boolean resposta = false;
 
-        if (this.velocitat >= 180 && accelerar) {
-            this.rumb = 45;
-            resposta = true;
-        }
+        if (this.velocitat >= 180 && accelerar && alcada >= 0) {
 
-        return resposta;
-    }
-
-    // Canvia el rumb de l'avio per que perdi alçada
-    public boolean baixar() {
-        boolean resposta = false;
-
-        if (accelerar) {
-            this.rumb = 315;
-            resposta = true;
+            if (alcada > 500 && !this.trenAterratge && this.accelerar) {
+                this.alcada = alcada;
+                resposta = true;
+            }
+            else if (alcada <= 500 && this.accelerar) {
+                this.alcada = alcada;
+                resposta = true;
+            }
         }
 
         return resposta;
     }
 
     // Permet canviar les coordenades de l'avio
-    public void canviarCoordenades(int x, int y) {
+    public boolean canviarCoordenades(int x, int y) {
+        boolean resposta = false;
 
-        this.coordenades.setX(x);
-        this.coordenades.setY(y);
+        if (x >= 0 && x <= 1000 && y >= 0 && y <= 1000 && this.accelerar) {
 
+            this.coordenades.setX(x);
+            this.coordenades.setY(y);
+            resposta = true;
+        }
+
+        return resposta;
+    }
+
+    // Canvia l'estat del tren d'aterratge
+    public boolean canviarEstatTrenAterratge() {
+        boolean resposta = false;
+
+        if (this.trenAterratge) {
+            resposta = pujarTrenAterratge();
+        }
+        else {
+            resposta = baixarTrenAterratge();
+        }
+
+        return resposta;
     }
 
     // Puja el tren d'aterratge
-    public boolean pujarTrenAterratge() {
+    private boolean pujarTrenAterratge() {
         boolean resposta = false;
 
-        if (this.coordenades.getY() != 100 && !(this.coordenades.getX() >= 100 || this.coordenades.getX() <= 120)) {
+        if ((this.coordenades.getY() != 100 && !(this.coordenades.getX() >= 100 || this.coordenades.getX() <= 120)) && this.alcada > 0) {
 
             this.trenAterratge = false;
             resposta = true;
@@ -120,7 +136,7 @@ public class avio {
     }
 
     // Baixa el tren d'aterratge
-    public boolean baixarTrenAterratge() {
+    private boolean baixarTrenAterratge() {
         boolean resposta = false;
 
         if (this.coordenades.getX() <= 500 && this.velocitat <= 300) {
@@ -141,6 +157,25 @@ public class avio {
             if (motor && accelerar) {
                 this.rumb = rumb;
                 resposta = true;
+            }
+        }
+
+        return resposta;
+    }
+
+    // Aterra l'avió
+    public boolean aterra() {
+        boolean resposta = false;
+
+        // Es troba dins de la pista d'aterratge?
+        if ((this.coordenades.getY() == 100 && (this.coordenades.getX() >= 100 || this.coordenades.getX() <= 120)) && this.alcada == 0) {
+            // Velocitat adequada i tren d'aterratge preparat?
+            if (this.velocitat <= 200 && this.trenAterratge) {
+
+                this.velocitat = 0;
+                this.accelerar = false;
+                resposta = true;
+
             }
         }
 

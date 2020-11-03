@@ -6,8 +6,8 @@ public class avioComercial extends avio {
     private String desti;
     private int capacitatPassatgers;
 
-    public avioComercial(String matricula, String marca, String model, int tripulants, int autonomia, int acceleracio, int velocitatMaxima, String origen, String desti, int capacitatPassatgers) {
-        super(matricula, marca, model, tripulants, autonomia, acceleracio, velocitatMaxima);
+    public avioComercial(String matricula, String marca, String model, int tripulants, int autonomia, String origen, String desti, int capacitatPassatgers) {
+        super(matricula, marca, model, tripulants, autonomia);
 
         this.origen = origen;
         this.desti = desti;
