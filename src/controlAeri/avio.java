@@ -125,7 +125,7 @@ public class avio {
     private boolean pujarTrenAterratge() {
         boolean resposta = false;
 
-        if ((this.coordenades.getY() != 100 && !(this.coordenades.getX() >= 100 || this.coordenades.getX() <= 120)) && this.alcada > 0) {
+        if ((this.coordenades.getY() != 100 && !(this.coordenades.getX() >= 100 && this.coordenades.getX() <= 120)) && this.alcada > 0) {
 
             this.trenAterratge = false;
             resposta = true;
@@ -215,9 +215,13 @@ public class avio {
         return motor;
     }
 
-    // Getters de les classes heretades. Aquí retornen null. Es sobreescriuen en les subclasses.
-    public ArrayList<missils> getMissils() {
-        return null;
+    public int getAlcada() {
+        return alcada;
+    }
+
+    // Mètodes de les classes heretades. Aquí retornen null. Es sobreescriuen en les subclasses.
+    public int getMissils() {
+        return 0;
     }
 
     public String getOrigen() {
@@ -229,6 +233,22 @@ public class avio {
     }
 
     public int getCapacitatPassatgers() {
+        return 0;
+    }
+
+    public void dispararMissil() {
+
+    }
+
+    public String getBandol() {
+        return "";
+    }
+
+    public boolean afegirMissils(int numMissils) {
+        return false;
+    }
+
+    public int getDistanciaMaxTir() {
         return 0;
     }
 }

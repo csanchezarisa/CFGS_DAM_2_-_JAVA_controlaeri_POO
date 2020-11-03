@@ -17,4 +17,35 @@ public class avioCombat extends avio {
         this.numMissils = numMissils;
 
     }
+
+    // Afageix tants missils com s'indiquin
+    @Override
+    public boolean afegirMissils(int missilsNous) {
+        boolean resposta = false;
+
+        if ((missils.size() + missilsNous) <= numMissils) {
+            for (int i = 0; i < missilsNous; i++) {
+                    missils missil = new missils();
+                    this.missils.add(missil);
+            }
+            resposta = true;
+        }
+
+        return resposta;
+    }
+
+    @Override
+    public int getMissils() {
+        return this.missils.size();
+    }
+
+    @Override
+    public String getBandol() {
+        return bandol;
+    }
+
+    @Override
+    public int getDistanciaMaxTir() {
+        return this.distanciaMaxDisparar;
+    }
 }
