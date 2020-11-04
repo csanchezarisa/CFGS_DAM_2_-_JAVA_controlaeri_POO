@@ -259,4 +259,8 @@ public class avio {
     public void desxifrar(String contrasenya) {
 
     }
+
+    public boolean isEncriptat() {
+        return false;
+    }
 }

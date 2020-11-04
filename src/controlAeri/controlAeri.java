@@ -10,12 +10,14 @@ import java.util.Scanner;
 
 public class controlAeri {
 
+    // Constants que defineixen l'alcanç que té el controlador aeri
     static public final int RANGESPAIAERI_X = 1000;
     static public final int RANGESPAIAERI_Y = 1000;
     static public final int RANGESPAIAERI_ALCADA = 5000;
 
     public Scanner teclat = new Scanner(System.in);
 
+    // Llistat amb els avions que s'estan gestionant
     private ArrayList<avio> avions = new ArrayList<avio>();
 
     // S'executa el mètode launch, per evitar haver de treballar amb static
@@ -49,20 +51,28 @@ public class controlAeri {
             switch (seleccioUsuari) {
 
                 case '1':
+                    // Afegir avió
                     afegirAvio();
                     break;
 
                 case '2':
+                    // Gestionar avió
                     menuSeleccioAvio();
                     break;
 
                 case '3':
+                    // Mostrar la informació de l'espai aeri
+                    mostrarInformacio();
                     break;
 
                 case '4':
+                    // Xifrar els avions
+                    menuXifrarAvions();
                     break;
 
                 case '5':
+                    // Desxifar els avions
+                    menuDesxifrarAvions();
                     break;
 
                 case '6':
@@ -97,7 +107,6 @@ public class controlAeri {
         System.out.println(Colors.BLUE + "------------------------------" + Colors.RESET);
 
     }
-
 
     /* .: 1.1. MENU AFEGIR AVIO :. */
     // Comprova si hi ha espai per crear-ne mes avions i permet crear-ne de nous
@@ -175,7 +184,6 @@ public class controlAeri {
 
     }
 
-
     /* .: 1.1.1. AFEGIR AVIÓ COMERCIAL :. */
     private void afegirAvioComercial() throws InterruptedException {
 
@@ -239,7 +247,6 @@ public class controlAeri {
         }
 
     }
-
 
     /* .: 1.1.2. AFEGIR AVIÓ DE COMBAT :. */
     private void afegirAvioCombat() throws InterruptedException {
@@ -817,10 +824,232 @@ public class controlAeri {
     }
 
 
+    /* .: 3. MOSTRAR INFORMACIÓ CONTROL AERI :. */
+    private void mostrarInformacio() throws InterruptedException {
+
+        // Revisa que hi hagi algun avió inicialitzat. Sino, mostra un error
+        if (avions.size() > 0) {
+
+            String[][] informacio = muntarTaula();
+            mostrarTaula(informacio);
+
+        }
+        else {
+            mostrarError("NO HI HA CAP AVIÓ INICIALITZAT!");
+        }
+    }
+
+    // Prepara la taula amb la informació
+    private String[][] muntarTaula() {
+
+        String[][] taula = new String[14][avions.size() + 1];
+
+        // Registra tots els camps de la primera columna de la taula
+        for (int i = 0; i < taula.length; i++) {
+
+            String textPerIntroduir = Colors.PURPLE;
+
+            switch (i) {
+
+                case 0:
+                case 1:
+                    textPerIntroduir = textPerIntroduir + "\t\t\t\t";
+                    break;
+
+                case 2:
+                    textPerIntroduir = textPerIntroduir + "Marca\t\t\t";
+                    break;
+
+                case 3:
+                    textPerIntroduir = textPerIntroduir + "Model\t\t\t";
+                    break;
+
+                case 4:
+                    textPerIntroduir = textPerIntroduir + "Matrícula\t\t";
+                    break;
+
+                case 5:
+                    textPerIntroduir = textPerIntroduir + "X\t\t\t\t";
+                    break;
+
+                case 6:
+                    textPerIntroduir = textPerIntroduir + "Y\t\t\t\t";
+                    break;
+
+                case 7:
+                    textPerIntroduir = textPerIntroduir + "Alçada\t\t\t";
+                    break;
+
+                case 8:
+                    textPerIntroduir = textPerIntroduir + "Velocitat\t\t";
+                    break;
+
+                case 9:
+                    textPerIntroduir = textPerIntroduir + "Tren aterratge\t";
+                    break;
+
+                case 10:
+                    textPerIntroduir = textPerIntroduir + "Motor\t\t\t";
+                    break;
+
+                case 11:
+                    textPerIntroduir = textPerIntroduir + "Missils\t\t";
+                    break;
+
+                case 12:
+                    textPerIntroduir = textPerIntroduir + "Origen\t\t\t";
+                    break;
+
+                case 13:
+                    textPerIntroduir = textPerIntroduir + "Destí\t\t\t";
+                    break;
+
+            }
+
+            taula[i][0] = textPerIntroduir;
+
+        }
+
+        // Registra tots els camps de cada avió
+        for (int fila = 0; fila < taula.length; fila++) {
+            for (int columna = 1; columna < taula[fila].length; columna++) {
+                String textPerIntroduir = "";
+
+                switch (fila) {
+                    case 0:
+                        // Capçaleres de la taula
+                        textPerIntroduir = "Aeronau " + columna;
+                        textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length()));
+                        textPerIntroduir = Colors.PURPLE + textPerIntroduir + Colors.RESET;
+                        break;
+
+                    case 1:
+                        // Espaiat
+                        textPerIntroduir = "-".repeat(13) + " ";
+                        textPerIntroduir = Colors.BLUE + textPerIntroduir + Colors.RESET;
+                        break;
+
+                    case 2:
+                        // Marca
+                        textPerIntroduir = avions.get(columna - 1).getMarca();
+                        textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
+                        break;
+
+                    case 3:
+                        // Model
+                        textPerIntroduir = avions.get(columna - 1).getModel();
+                        textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
+                        break;
+
+                    case 4:
+                        // Matrícula
+                        textPerIntroduir = avions.get(columna - 1).getMatricula();
+                        textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
+                        break;
+
+                    case 5:
+                        // X
+                        textPerIntroduir = String.valueOf(avions.get(columna - 1).getCoordenadaX());
+                        textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
+                        break;
+
+                    case 6:
+                        // Y
+                        textPerIntroduir = String.valueOf(avions.get(columna - 1).getCoordenadaY());
+                        textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
+                        break;
+
+                    case 7:
+                        // Alçada
+                        textPerIntroduir = String.valueOf(avions.get(columna - 1).getAlcada());
+                        textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
+                        break;
+
+                    case 8:
+                        // Velocitat
+                        textPerIntroduir = String.valueOf(avions.get(columna - 1).getVelocitat());
+                        textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
+                        break;
+
+                    case 9:
+                        // Tren aterratge
+                        textPerIntroduir = (avions.get(columna - 1).isTrenAterratge()) ? "ON" : "OFF";
+                        textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
+                        break;
+
+                    case 10:
+                        // Motor
+                        textPerIntroduir = (avions.get(columna - 1).isMotor()) ? "ON" : "OFF";
+                        textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
+                        break;
+
+                    case 11:
+                        // Missils
+                        if (avions.get(columna - 1) instanceof avioCombat) {
+                            textPerIntroduir = String.valueOf(avions.get(columna - 1).getMissils());
+                        }
+                        textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
+                        break;
+
+                    case 12:
+                        // Origen
+                        if (avions.get(columna - 1) instanceof avioComercial) {
+                            textPerIntroduir = avions.get(columna - 1).getOrigen();
+                        }
+                        textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
+                        break;
+
+                    case 13:
+                        // Destí
+                        if (avions.get(columna - 1) instanceof avioComercial) {
+                            textPerIntroduir = avions.get(columna - 1).getDesti();
+                        }
+                        textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
+                        break;
+                }
+
+                taula[fila][columna] = textPerIntroduir;
+            }
+        }
+        return taula;
+    }
+
+    // Mostra la taula que se li pasi, separant els elements
+    private void mostrarTaula(String[][] taula) {
+        for (int fila = 0; fila < taula.length; fila++) {
+            for (int columna = 0; columna < taula[fila].length; columna++) {
+                System.out.print(" " + taula[fila][columna] + Colors.BLUE + "|" + Colors.RESET);
+            }
+            System.out.println();
+        }
+    }
+
+    // Formula per calcular quantes tabulacions s'han de fer per que la casella amb la paraula introduida mesuri 16 espais
+    private int numTabulacions(int midaParaula) {
+        int numTabulacions = 0;
+
+        if (midaParaula < 16) {
+
+            double numero = 16 - midaParaula;
+            numero = numero / 4;
+            numTabulacions = (int) Math.round(numero);
+
+        }
+
+        return numTabulacions;
+    }
+
+
     /* .: 4. XIFRAR AVIONS DE COMBAT BÀNDOL AMIC :. */
+    private void menuXifrarAvions() {
+
+    }
 
 
     /* .: 5. DESXIFRAR AVIONS DE COMBAT BÀNDOL AMIC :. */
+    private void menuDesxifrarAvions() {
+
+    }
 
 
     /* .: FUNCIONS PRÒPIES DEL CONTROL AERI */
@@ -974,6 +1203,7 @@ public class controlAeri {
             atura();
     }
 
+    // Executa tots els mètodes per tal d'actualitzar l'estat del control aeri i mostrar els missatges pertinents per informar a l'usuari
     public void actualitzarEstatControladorAeri() throws InterruptedException {
 
         eliminarAvionsForaDeRang();

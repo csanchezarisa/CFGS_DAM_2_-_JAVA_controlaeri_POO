@@ -8,6 +8,7 @@ public class avioCombat extends avio {
     private int distanciaMaxDisparar;
     private String bandol;
     private int numMissils;
+    private boolean encriptat;
 
     public avioCombat(String matricula, String marca, String model, int tripulants, int autonomia, int distanciaMaxDisparar, String bandol, int numMissils) {
         super(matricula, marca, model, tripulants, autonomia);
@@ -15,6 +16,7 @@ public class avioCombat extends avio {
         this.distanciaMaxDisparar = distanciaMaxDisparar;
         this.bandol = bandol;
         this.numMissils = numMissils;
+        this.encriptat = false;
 
     }
 
@@ -77,5 +79,10 @@ public class avioCombat extends avio {
     @Override
     public void desxifrar(String contrasenya) {
 
+    }
+
+    @Override
+    public boolean isEncriptat() {
+        return this.encriptat;
     }
 }
