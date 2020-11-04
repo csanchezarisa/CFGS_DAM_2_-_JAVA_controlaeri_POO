@@ -28,7 +28,7 @@ public class controlAeri {
 
 
     /* .: 1. MENU PRINCIPAL :. */
-    // Metode principal del programa. Mostra el menu principal i permet excollir la primera opcio
+    // Metode principal del programa. Mostra el menu principal i permet excollir la primera opcio. A més, sempre que s'hi accedeix actualitza les dades del controlador, avisant dels problemes que ha hagut
     public void launch() throws InterruptedException {
 
         char seleccioUsuari = '0';
@@ -74,6 +74,8 @@ public class controlAeri {
                     atura();
 
             }
+
+            actualitzarEstatControladorAeri();
 
         }
         while (seleccioUsuari != '6');
@@ -135,8 +137,6 @@ public class controlAeri {
                     atura();
 
             }
-
-            colisionarAvions();
 
         }
         else {
@@ -817,6 +817,12 @@ public class controlAeri {
     }
 
 
+    /* .: 4. XIFRAR AVIONS DE COMBAT BÀNDOL AMIC :. */
+
+
+    /* .: 5. DESXIFRAR AVIONS DE COMBAT BÀNDOL AMIC :. */
+
+
     /* .: FUNCIONS PRÒPIES DEL CONTROL AERI */
     // Revisa si s'ha trobat alguna repetició amb la matricula introduida
     private boolean matriculaRepetida(String matriculaPerRevisar) {
@@ -929,7 +935,50 @@ public class controlAeri {
         atura();
     }
 
-    private void derribarAvio(int posicio) {
+    // Revisa les posicions de tots els avions que s'estan gestionant, i n'elimina els que es troben fora de les constants definides al inici del codi
+    private void eliminarAvionsForaDeRang() throws InterruptedException {
+        boolean eliminat = false;
+
+        for (avio avio : avions) {
+            // Es recuperen les dades per no haver d'estar fent consultes
+            int posicioX = avio.getCoordenadaX();
+            int posicioY = avio.getCoordenadaY();
+            int alcada = avio.getAlcada();
+
+            if ((posicioX < 0 || posicioX > RANGESPAIAERI_X) ||
+                    (posicioY < 0 || posicioY > RANGESPAIAERI_Y) ||
+                    (alcada > RANGESPAIAERI_ALCADA)) {
+                System.out.println(Colors.RED + "L'avió amb matrícula " + avio.getMatricula() + " es troba fora del rang de l'espai aeri." + Colors.RESET);
+                eliminat = true;
+                avions.remove(avio);
+            }
+        }
+
+        if (eliminat)
+            atura();
+    }
+
+    // Estimba els avions que es troben a una alçada negativa
+    private void estimbarAvionsPocaAlcada() throws InterruptedException {
+        boolean estimbat = false;
+
+        for (avio avio: avions) {
+            if (avio.getAlcada() < 0) {
+                System.out.println(Colors.RED + "L'avió amb matrícula " + avio.getMatricula() + " s'ha estimbat contra el terra." + Colors.RESET);
+                estimbat = true;
+                avions.remove(avio);
+            }
+        }
+
+        if (estimbat)
+            atura();
+    }
+
+    public void actualitzarEstatControladorAeri() throws InterruptedException {
+
+        eliminarAvionsForaDeRang();
+        estimbarAvionsPocaAlcada();
+        colisionarAvions();
 
     }
 
