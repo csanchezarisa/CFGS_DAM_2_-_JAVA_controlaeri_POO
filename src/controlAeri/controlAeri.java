@@ -830,8 +830,20 @@ public class controlAeri {
         // Revisa que hi hagi algun avió inicialitzat. Sino, mostra un error
         if (avions.size() > 0) {
 
+            netejarPantalla();
             String[][] informacio = muntarTaula();
             mostrarTaula(informacio);
+            System.out.println();
+            mostrarAlertes();
+
+            System.out.println("Prem un botó per sortir...");
+            try {
+                resetTeclat();
+                teclat.nextLine();
+            }
+            catch (Exception e) {
+
+            }
 
         }
         else {
@@ -839,6 +851,7 @@ public class controlAeri {
         }
     }
 
+    /* .: 3.1. PREPARAR I MOSTAR TAULA AMB INFORMACIÓ DELS AVIONS :. */
     // Prepara la taula amb la informació
     private String[][] muntarTaula() {
 
@@ -1037,6 +1050,74 @@ public class controlAeri {
         }
 
         return numTabulacions;
+    }
+
+    /* .: 3.2. PREPARAR I MOSTRAR WARNINGS :. */
+    private Object[] prepararAlertes() {
+        ArrayList<String> alertes = new ArrayList<String>();
+
+        for (int index = 0; index < avions.size(); index++) {
+
+            int maxCoordenadaX = avions.get(index).getCoordenadaX() + 50;
+            int minCoordenadaX = avions.get(index).getCoordenadaX() - 50;
+            int maxCoordenadaY = avions.get(index).getCoordenadaY() + 50;
+            int minCoordenadaY = avions.get(index).getCoordenadaY() - 50;
+            int maxAlcada = avions.get(index).getAlcada() + 500;
+            int minAlcada = avions.get(index).getAlcada() - 500;
+
+            for (int subIndex = index + 1; subIndex < avions.size(); subIndex++) {
+                boolean perillX = false;
+                boolean perillY = false;
+                boolean perillAlcada = false;
+                boolean perill = false;
+
+                if (avions.get(subIndex).getCoordenadaX() >= minCoordenadaX && avions.get(subIndex).getCoordenadaX() <= maxCoordenadaX) {
+                    perill = true;
+                    perillX= true;
+                }
+                if (avions.get(subIndex).getCoordenadaY() >= minCoordenadaY && avions.get(subIndex).getCoordenadaY() <= maxCoordenadaY) {
+                    perill = true;
+                    perillY= true;
+                }
+                if (avions.get(subIndex).getAlcada() >= minAlcada && avions.get(subIndex).getAlcada() <= maxAlcada) {
+                    perill = true;
+                    perillAlcada= true;
+                }
+
+                if (perill) {
+                    String alerta = "Perill de col·lisió entre els avions " + avions.get(index).getMatricula() + " i " + avions.get(subIndex).getMatricula() + "\n" +
+                            "\t";
+
+                    if (perillX) {
+                        alerta = alerta + "Coordenades X molt properes.\n\t";
+                    }
+                    if (perillY) {
+                        alerta = alerta + "Coordenades Y molt properes.\n\t";
+                    }
+                    if (perillAlcada) {
+                        alerta = alerta + "Alçades molt properes.\n\t";
+                    }
+
+                    alertes.add(alerta + "\n");
+                }
+            }
+        }
+
+        return alertes.toArray();
+    }
+
+    private void mostrarAlertes() throws InterruptedException {
+        Object[] alertesObjecte = prepararAlertes();
+
+        if (alertesObjecte.length > 0) {
+            for (Object alerta : alertesObjecte) {
+                System.out.println(Colors.RED +  String.valueOf(alerta) + Colors.RESET);
+            }
+        }
+        else {
+            System.out.println(Colors.GREEN + "NO HI HA PERILLS" + Colors.RESET);
+        }
+        atura();
     }
 
 
