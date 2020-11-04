@@ -93,11 +93,11 @@ public class avio {
         return resposta;
     }
 
-    // Permet canviar les coordenades de l'avio
+    // Permet canviar les coordenades de l'avio. Es pot moure a qualsevol coordenada, després el control actualitza les dades i esborra els avions que es troben a fora del marge
     public boolean canviarCoordenades(int x, int y) {
         boolean resposta = false;
 
-        if (x >= 0 && x <= 1000 && y >= 0 && y <= 1000 && this.accelerar) {
+        if (this.accelerar) {
 
             this.coordenades.setX(x);
             this.coordenades.setY(y);
@@ -236,8 +236,8 @@ public class avio {
         return 0;
     }
 
-    public void dispararMissil() {
-
+    public boolean dispararMissil() {
+        return false;
     }
 
     public String getBandol() {
@@ -250,5 +250,13 @@ public class avio {
 
     public int getDistanciaMaxTir() {
         return 0;
+    }
+
+    public void xifrar(String contrasenya) {
+
+    }
+
+    public void desxifrar(String contrasenya) {
+
     }
 }

@@ -34,18 +34,48 @@ public class avioCombat extends avio {
         return resposta;
     }
 
+    // Retorna el número de missils que té l'avió carregat
     @Override
     public int getMissils() {
         return this.missils.size();
     }
 
+    // Retorna el bàndol de l'avió
     @Override
     public String getBandol() {
         return bandol;
     }
 
+    // Restorna la distància màxima de tir que té l'avió
     @Override
     public int getDistanciaMaxTir() {
         return this.distanciaMaxDisparar;
+    }
+
+    // Determina si es pot disparar el missil, si ho pot fer ho realitza i retorna un true, sino, retorna un false
+    @Override
+    public boolean dispararMissil() {
+        boolean resposta = false;
+
+        if (missils.size() > 0) {
+
+            missils.remove(0);
+            resposta = true;
+
+        }
+
+        return resposta;
+    }
+
+    // Xifra l'avió mitjançant una contrasenya
+    @Override
+    public void xifrar(String contrasenya) {
+
+    }
+
+    // Desxifra l'avió si troba la contrasenya
+    @Override
+    public void desxifrar(String contrasenya) {
+
     }
 }

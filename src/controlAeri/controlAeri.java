@@ -10,6 +10,10 @@ import java.util.Scanner;
 
 public class controlAeri {
 
+    static public final int RANGESPAIAERI_X = 1000;
+    static public final int RANGESPAIAERI_Y = 1000;
+    static public final int RANGESPAIAERI_ALCADA = 5000;
+
     public Scanner teclat = new Scanner(System.in);
 
     private ArrayList<avio> avions = new ArrayList<avio>();
@@ -35,7 +39,12 @@ public class controlAeri {
 
             netejarPantalla();
             mostrarMenuPrincipal();
-            seleccioUsuari = teclat.nextLine().charAt(0);
+            try {
+                seleccioUsuari = teclat.nextLine().charAt(0);
+            }
+            catch (Exception e) {
+                seleccioUsuari = ' ';
+            }
 
             switch (seleccioUsuari) {
 
@@ -100,7 +109,12 @@ public class controlAeri {
 
             netejarPantalla();
             mostrarMenuAfegirAvioSeleccioTipus();
-            seleccioUsuari = teclat.nextLine().charAt(0);
+            try {
+                seleccioUsuari = teclat.nextLine().charAt(0);
+            }
+            catch (Exception e) {
+                seleccioUsuari = ' ';
+            }
 
             switch (seleccioUsuari) {
 
@@ -296,7 +310,13 @@ public class controlAeri {
         netejarPantalla();
         System.out.print("Introdueix la matrícula de l'avió que vols gestionar: ");
         resetTeclat();
-        String matricula = teclat.nextLine();
+        String matricula;
+        try {
+            matricula = teclat.nextLine();
+        }
+        catch (Exception e) {
+            matricula = "";
+        }
 
         int posicioArray = buscarPerMatricula(matricula.toUpperCase());
 
@@ -718,7 +738,7 @@ public class controlAeri {
             int posicioAvioPerDerribar = buscarPerMatricula(matriculaPerDisparar, matriculesDisponibles);
 
             // Es comprova si s'ha torbat alguna coincidencia amb la matrícula que ha introduit l'usuari
-            if (posicioAvioPerDerribar >= 0) {
+            if (posicioAvioPerDerribar >= 0 && avions.get(posicioAvio).dispararMissil()) {
 
                 derribarAvio(matriculesDisponibles.get(posicioAvioPerDerribar));
 
