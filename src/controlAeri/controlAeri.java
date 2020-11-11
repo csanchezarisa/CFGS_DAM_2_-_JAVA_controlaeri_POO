@@ -505,190 +505,194 @@ public class controlAeri {
         }
         else {
 
-            do {
+            // En cas que l'avió de combat estigui encriptat mostrarà un error. Sinó, deixarà treballar amb ell
+            if (avions.get(avioSeleccionat).isEncriptat()) {
 
-                netejarPantalla();
-                menuGestionarAvioCombat(avions.get(avioSeleccionat).getMatricula());
-                resetTeclat();
-                try {
-
-                    seleccioUsuari = teclat.nextInt();
-
-                }
-                catch (Exception e) {
-
-                    seleccioUsuari = 0;
-
-                }
-
-                resetTeclat();
-                switch (seleccioUsuari) {
-
-                    case 1:
-                        // Encén motor
-                        avions.get(avioSeleccionat).encendreMotor();
-                        break;
-
-                    case 2:
-                        // Atura motor
-                        avions.get(avioSeleccionat).apagarMotor();
-                        break;
-
-                    case 3:
-                        // Accelera l'avió
-                        int velocitat;
-                        try {
-
-                            System.out.println("Introdueix la velocitat de l'avió:");
-                            velocitat = teclat.nextInt();
-
-                        }
-                        catch (Exception e) {
-
-                            System.out.println(Colors.RED + "NO S'HA POGUT CANVIAR LA VELOCITAT");
-                            System.out.println("MOTIU: " + e + Colors.RESET);
-                            atura();
-                            break;
-
-                        }
-
-                        if (!avions.get(avioSeleccionat).accelerar(velocitat)) {
-                            mostrarError("NO S'HA POGUT ACCELERAR, REVISA L'ESTAT DEL MOTOR");
-                        }
-                        break;
-
-                    case 4:
-                        // Frena l'avió
-                        if (!avions.get(avioSeleccionat).frenar()) {
-                            mostrarError("NO S'HA POGUT ACCELERAR, REVISA L'ESTAT DEL MOTOR");
-                        }
-                        break;
-
-                    case 5:
-                        // Canvia l'alçada
-                        int alcada;
-                        try {
-                            System.out.println("Introdueix l'alçada de l'avió:");
-                            alcada = teclat.nextInt();
-                        }
-                        catch (Exception e) {
-
-                            System.out.println(Colors.RED + "NO S'HA POGUT CANVIAR L'ALÇADA");
-                            System.out.println("MOTIU: " + e + Colors.RESET);
-                            atura();
-                            break;
-
-                        }
-                        if (!avions.get(avioSeleccionat).canviarAlcada(alcada)) {
-                            mostrarError("NO S'HA POGUT CANVIAR L'ALÇADA DE L'AVIÓ, REVISA L'ESTAT DE L'AVIÓ");
-                        }
-
-                        break;
-
-                    case 6:
-                        // Puja/baixa el tren aterratge
-                        if (!avions.get(avioSeleccionat).canviarEstatTrenAterratge()) {
-                            mostrarError("NO S'HA POGUT CANVIAR L'ESTAT DEL TREN D'ATERRATGE, REVISA LA VELOCITAT I LA POSICIÓ DE L'AVIÓ");
-                        }
-                        break;
-
-                    case 7:
-                        // Canviar posició avió
-                        int eixY;
-                        int eixX;
-
-                        try {
-                            System.out.println("Introdueix la coordenada X:");
-                            eixX = teclat.nextInt();
-                            System.out.println("Introdueix la coordenada Y:");
-                            eixY = teclat.nextInt();
-                        }
-                        catch (Exception e) {
-
-                            System.out.println(Colors.RED + "NO S'HAN POGUT CANVIAR LES COORDENADES");
-                            System.out.println("MOTIU: " + e + Colors.RESET);
-                            atura();
-                            break;
-
-                        }
-
-                        if (!avions.get(avioSeleccionat).canviarCoordenades(eixX, eixY)){
-                            mostrarError("NO S'HAN POGUT CANVIAR LES COORDENADES, REVISA L'ESTAT DE L'AVIÓ");
-                        }
-
-                        break;
-
-                    case 8:
-                        // Canviar rumb avió
-                        int rumb;
-
-                        try {
-
-                            System.out.println("Introdueix el rumb de l'avió:");
-                            rumb = teclat.nextInt();
-
-                        }
-                        catch (Exception e) {
-                            System.out.println(Colors.RED + "NO S'HA POGUT CANVIAR EL RUMB");
-                            System.out.println("MOTIU: " + e + Colors.RESET);
-                            atura();
-                            break;
-                        }
-
-                        if (!avions.get(avioSeleccionat).canviarRumb(rumb)) {
-                            mostrarError("NO S'HA POGUT CANVIAR EL RUMB DE L'AVIÓ");
-                        }
-
-                        break;
-
-                    case 9:
-                        // Aterrar avió
-                        if (!avions.get(avioSeleccionat).aterra()) {
-                            noPotAterrar(avioSeleccionat);
-                            seleccioUsuari = 12;
-                        }
-                        break;
-
-                    case 10:
-                        // Afegir missils
-                        int missils;
-
-                        try {
-
-                            System.out.println("Introdueix el número de missils a carregar en l'avió:");
-                            missils = teclat.nextInt();
-
-                        }
-                        catch (Exception e) {
-                            System.out.println(Colors.RED + "NO S'HAN POGUT CARREGAR ELS MISSILS");
-                            System.out.println("MOTIU: " + e + Colors.RESET);
-                            atura();
-                            break;
-                        }
-
-                        if (!avions.get(avioSeleccionat).afegirMissils(missils) || missils < 0) {
-                            mostrarError("INTRODUEIX UN VALOR VÀLID");
-                        }
-                        break;
-
-                    case 11:
-                        // Disparar missil
-                        dispararMissil(avioSeleccionat);
-                        seleccioUsuari = 12;
-                        break;
-
-                    case 12:
-                        // Sortir
-                        break;
-
-                    default:
-                        mostrarError("INTRODUEIX UNA OPVIÓ VÀLIDA!");
-                        break;
-
-                }
+                mostrarError("L'AVIÓ AMB MATRÍCULA " + avions.get(avioSeleccionat).getMatricula() + " ES TROBA ENCRIPTAT\n" +
+                        "PER OPERAR AMB ELL PRIMER S'HA DE DESENCRIPTAR");
 
             }
-            while (seleccioUsuari != 12);
+            else {
+
+                do {
+
+                    netejarPantalla();
+                    menuGestionarAvioCombat(avions.get(avioSeleccionat).getMatricula());
+                    resetTeclat();
+                    try {
+
+                        seleccioUsuari = teclat.nextInt();
+
+                    } catch (Exception e) {
+
+                        seleccioUsuari = 0;
+
+                    }
+
+                    resetTeclat();
+                    switch (seleccioUsuari) {
+
+                        case 1:
+                            // Encén motor
+                            avions.get(avioSeleccionat).encendreMotor();
+                            break;
+
+                        case 2:
+                            // Atura motor
+                            avions.get(avioSeleccionat).apagarMotor();
+                            break;
+
+                        case 3:
+                            // Accelera l'avió
+                            int velocitat;
+                            try {
+
+                                System.out.println("Introdueix la velocitat de l'avió:");
+                                velocitat = teclat.nextInt();
+
+                            } catch (Exception e) {
+
+                                System.out.println(Colors.RED + "NO S'HA POGUT CANVIAR LA VELOCITAT");
+                                System.out.println("MOTIU: " + e + Colors.RESET);
+                                atura();
+                                break;
+
+                            }
+
+                            if (!avions.get(avioSeleccionat).accelerar(velocitat)) {
+                                mostrarError("NO S'HA POGUT ACCELERAR, REVISA L'ESTAT DEL MOTOR");
+                            }
+                            break;
+
+                        case 4:
+                            // Frena l'avió
+                            if (!avions.get(avioSeleccionat).frenar()) {
+                                mostrarError("NO S'HA POGUT ACCELERAR, REVISA L'ESTAT DEL MOTOR");
+                            }
+                            break;
+
+                        case 5:
+                            // Canvia l'alçada
+                            int alcada;
+                            try {
+                                System.out.println("Introdueix l'alçada de l'avió:");
+                                alcada = teclat.nextInt();
+                            } catch (Exception e) {
+
+                                System.out.println(Colors.RED + "NO S'HA POGUT CANVIAR L'ALÇADA");
+                                System.out.println("MOTIU: " + e + Colors.RESET);
+                                atura();
+                                break;
+
+                            }
+                            if (!avions.get(avioSeleccionat).canviarAlcada(alcada)) {
+                                mostrarError("NO S'HA POGUT CANVIAR L'ALÇADA DE L'AVIÓ, REVISA L'ESTAT DE L'AVIÓ");
+                            }
+
+                            break;
+
+                        case 6:
+                            // Puja/baixa el tren aterratge
+                            if (!avions.get(avioSeleccionat).canviarEstatTrenAterratge()) {
+                                mostrarError("NO S'HA POGUT CANVIAR L'ESTAT DEL TREN D'ATERRATGE, REVISA LA VELOCITAT I LA POSICIÓ DE L'AVIÓ");
+                            }
+                            break;
+
+                        case 7:
+                            // Canviar posició avió
+                            int eixY;
+                            int eixX;
+
+                            try {
+                                System.out.println("Introdueix la coordenada X:");
+                                eixX = teclat.nextInt();
+                                System.out.println("Introdueix la coordenada Y:");
+                                eixY = teclat.nextInt();
+                            } catch (Exception e) {
+
+                                System.out.println(Colors.RED + "NO S'HAN POGUT CANVIAR LES COORDENADES");
+                                System.out.println("MOTIU: " + e + Colors.RESET);
+                                atura();
+                                break;
+
+                            }
+
+                            if (!avions.get(avioSeleccionat).canviarCoordenades(eixX, eixY)) {
+                                mostrarError("NO S'HAN POGUT CANVIAR LES COORDENADES, REVISA L'ESTAT DE L'AVIÓ");
+                            }
+
+                            break;
+
+                        case 8:
+                            // Canviar rumb avió
+                            int rumb;
+
+                            try {
+
+                                System.out.println("Introdueix el rumb de l'avió:");
+                                rumb = teclat.nextInt();
+
+                            } catch (Exception e) {
+                                System.out.println(Colors.RED + "NO S'HA POGUT CANVIAR EL RUMB");
+                                System.out.println("MOTIU: " + e + Colors.RESET);
+                                atura();
+                                break;
+                            }
+
+                            if (!avions.get(avioSeleccionat).canviarRumb(rumb)) {
+                                mostrarError("NO S'HA POGUT CANVIAR EL RUMB DE L'AVIÓ");
+                            }
+
+                            break;
+
+                        case 9:
+                            // Aterrar avió
+                            if (!avions.get(avioSeleccionat).aterra()) {
+                                noPotAterrar(avioSeleccionat);
+                                seleccioUsuari = 12;
+                            }
+                            break;
+
+                        case 10:
+                            // Afegir missils
+                            int missils;
+
+                            try {
+
+                                System.out.println("Introdueix el número de missils a carregar en l'avió:");
+                                missils = teclat.nextInt();
+
+                            } catch (Exception e) {
+                                System.out.println(Colors.RED + "NO S'HAN POGUT CARREGAR ELS MISSILS");
+                                System.out.println("MOTIU: " + e + Colors.RESET);
+                                atura();
+                                break;
+                            }
+
+                            if (!avions.get(avioSeleccionat).afegirMissils(missils) || missils < 0) {
+                                mostrarError("INTRODUEIX UN VALOR VÀLID");
+                            }
+                            break;
+
+                        case 11:
+                            // Disparar missil
+                            dispararMissil(avioSeleccionat);
+                            seleccioUsuari = 12;
+                            break;
+
+                        case 12:
+                            // Sortir
+                            break;
+
+                        default:
+                            mostrarError("INTRODUEIX UNA OPVIÓ VÀLIDA!");
+                            break;
+
+                    }
+
+                }
+                while (seleccioUsuari != 12);
+            }
 
         }
 
