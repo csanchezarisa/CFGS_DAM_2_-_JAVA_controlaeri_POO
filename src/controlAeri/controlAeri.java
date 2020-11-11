@@ -76,6 +76,21 @@ public class controlAeri {
                     break;
 
                 case '6':
+                    // Crear avions per poder fer el test
+                    crearAvionsTest();
+                    System.out.println(Colors.GREEN + "S'HAN GENERAT ELS AVIONS DE TEST\n" +
+                            "POTS REVISAR-LOS EN LA OPCIÓ 3" + Colors.RESET);
+                    atura();
+                    break;
+
+                case '7':
+                    // Netejar avions
+                    avions.clear();
+                    System.out.println(Colors.GREEN + "S'HAN ELIMINAT TOTS ELS AVIONS CORRECTAMENT" + Colors.RESET);
+                    atura();
+                    break;
+
+                case '8':
                     // Sortir
                     break;
 
@@ -88,7 +103,7 @@ public class controlAeri {
             actualitzarEstatControladorAeri();
 
         }
-        while (seleccioUsuari != '6');
+        while (seleccioUsuari != '8');
 
     }
 
@@ -103,7 +118,9 @@ public class controlAeri {
         System.out.println(Colors.BLUE + "- " + Colors.RESET + "3. Mostrar informacio" + Colors.BLUE + "      -" + Colors.RESET);
         System.out.println(Colors.BLUE + "- " + Colors.RESET + "4. Xifrar avions" + Colors.BLUE + "           -" + Colors.RESET);
         System.out.println(Colors.BLUE + "- " + Colors.RESET + "5. Desxifrar avions" + Colors.BLUE + "        -" + Colors.RESET);
-        System.out.println(Colors.BLUE + "- " + Colors.RESET + "6. Sortir" + Colors.BLUE + "                  -");
+        System.out.println(Colors.BLUE + "- " + Colors.RESET + "6. Crer avions de test" + Colors.BLUE + "     -" + Colors.RESET);
+        System.out.println(Colors.BLUE + "- " + Colors.RESET + "7. Netejar avions" + Colors.BLUE + "          -" + Colors.RESET);
+        System.out.println(Colors.BLUE + "- " + Colors.RESET + "8. Sortir" + Colors.BLUE + "                  -");
         System.out.println(Colors.BLUE + "------------------------------" + Colors.RESET);
 
     }
@@ -306,6 +323,58 @@ public class controlAeri {
             System.out.println("MOTIU: " + e + Colors.RESET);
             atura();
         }
+
+    }
+
+    /* .: 1.2. CREACIÓ DELS AVIONS DE TEST AUTOMÀTICAMENT :. */
+    // Crea uns quants avions de manera automàtica per poder fer les proves necesàries
+    private void crearAvionsTest() {
+
+        avions.clear();
+        coordenades coordenades = new coordenades();
+        avioCombat avioCombat;
+        avioComercial avioComercial;
+
+        coordenades.setY(300);
+        coordenades.setX(300);
+
+        avioComercial = new avioComercial("AA1", "COMERCIAL", "MCOMERCIAL", 10, coordenades, 1000, 3000, 45, 300, 500, true, false, true, "BCN", "NY", 200);
+        avions.add(avioComercial);
+
+        coordenades = new coordenades();
+        coordenades.setX(900);
+        coordenades.setY(600);
+
+        avioCombat = new avioCombat("AB1", "COMBAT", "MCOMBAT", 2, coordenades, 1000, 4000, 60, 600, 1000, true, false, true, 500, "AMIC", 10, false, 0);
+        avions.add(avioCombat);
+
+        coordenades = new coordenades();
+        coordenades.setY(600);
+        coordenades.setX(800);
+
+        avioCombat = new avioCombat("AB2", "COMBAT", "MCOMBAT", 2, coordenades, 1000, 4000, 60, 600, 1000, true, false, true, 500, "ENEMIC", 10, false, 0);
+        avions.add(avioCombat);
+
+        coordenades = new coordenades();
+        coordenades.setX(100);
+        coordenades.setY(100);
+
+        avioComercial = new avioComercial("AA2", "COMERCIAL", "MCOMERCIAL", 10, coordenades, 0, 3000, 45, 0, 500, false, true, false, "MAD", "ARG", 250);
+        avions.add(avioComercial);
+
+        coordenades = new coordenades();
+        coordenades.setX(700);
+        coordenades.setY(800);
+
+        avioCombat = new avioCombat("AB3", "COMBAT", "MCOMBAT", 2, coordenades, 100, 4000, 60, 600, 1000, true, false, true, 500, "AMIC", 10, false, 0);
+        avions.add(avioCombat);
+
+        coordenades = new coordenades();
+        coordenades.setX(200);
+        coordenades.setY(200);
+
+        avioComercial = new avioComercial("AA3", "COMERCIAL", "MCOMERCIAL", 10, coordenades, 500, 3000, 45, 0, 500, true, true, true, "GAL", "UK", 100);
+        avions.add(avioComercial);
 
     }
 
@@ -1120,20 +1189,19 @@ public class controlAeri {
             for (int subIndex = index + 1; subIndex < avions.size(); subIndex++) {
                 boolean perillX = false;
                 boolean perillY = false;
-                boolean perillAlcada = false;
                 boolean perill = false;
 
                 if (avions.get(subIndex).getCoordenadaX() >= minCoordenadaX && avions.get(subIndex).getCoordenadaX() <= maxCoordenadaX) {
-                    perill = true;
-                    perillX= true;
+                    if (avions.get(subIndex).getAlcada() >= minAlcada && avions.get(subIndex).getAlcada() <= maxAlcada) {
+                        perill = true;
+                        perillX= true;
+                    }
                 }
                 if (avions.get(subIndex).getCoordenadaY() >= minCoordenadaY && avions.get(subIndex).getCoordenadaY() <= maxCoordenadaY) {
-                    perill = true;
-                    perillY= true;
-                }
-                if (avions.get(subIndex).getAlcada() >= minAlcada && avions.get(subIndex).getAlcada() <= maxAlcada) {
-                    perill = true;
-                    perillAlcada= true;
+                    if (avions.get(subIndex).getAlcada() >= minAlcada && avions.get(subIndex).getAlcada() <= maxAlcada) {
+                        perill = true;
+                        perillY= true;
+                    }
                 }
 
                 if (perill) {
@@ -1146,10 +1214,6 @@ public class controlAeri {
                     if (perillY) {
                         alerta = alerta + "Coordenades Y molt properes.\n\t";
                     }
-                    if (perillAlcada) {
-                        alerta = alerta + "Alçades molt properes.\n\t";
-                    }
-
                     alertes.add(alerta + "\n");
                 }
             }

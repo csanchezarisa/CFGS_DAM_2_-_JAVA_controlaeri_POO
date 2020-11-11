@@ -18,6 +18,7 @@ public class avio {
     private boolean trenAterratge;
     private boolean accelerar;
 
+    // Constructor utilitzat per generar avions de manera manual
     public avio(String matricula, String marca, String model, int tripulants, int autonomia) {
 
         this.matricula = matricula;
@@ -33,6 +34,23 @@ public class avio {
         this.trenAterratge = true;
         this.accelerar = false;
 
+    }
+
+    // Constructor utilitzat per crear avions de manera automàtica per fer el test
+    public avio(String matricula, String marca, String model, int tripulants, coordenades coordenades, int alcada, int autonomia, int rumb, int velocitat, int velocitatMaxima, boolean motor, boolean trenAterratge, boolean accelerar) {
+        this.matricula = matricula;
+        this.marca = marca;
+        this.model = model;
+        this.tripulants = tripulants;
+        this.coordenades = coordenades;
+        this.alcada = alcada;
+        this.autonomia = autonomia;
+        this.rumb = rumb;
+        this.velocitat = velocitat;
+        this.velocitatMaxima = velocitatMaxima;
+        this.motor = motor;
+        this.trenAterratge = trenAterratge;
+        this.accelerar = accelerar;
     }
 
     // "encen" el motor

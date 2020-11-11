@@ -11,6 +11,7 @@ public class avioCombat extends avio {
     private boolean encriptat;
     private int contrasenya;
 
+    // Constructor utilitzat per generar avions de manera manual
     public avioCombat(String matricula, String marca, String model, int tripulants, int autonomia, int distanciaMaxDisparar, String bandol, int numMissils) {
         super(matricula, marca, model, tripulants, autonomia);
 
@@ -19,6 +20,16 @@ public class avioCombat extends avio {
         this.numMissils = numMissils;
         this.encriptat = false;
 
+    }
+
+    // Constructor utilitzat per crear avions de manera automàtica per fer el test
+    public avioCombat(String matricula, String marca, String model, int tripulants, coordenades coordenades, int alcada, int autonomia, int rumb, int velocitat, int velocitatMaxima, boolean motor, boolean trenAterratge, boolean accelerar, int distanciaMaxDisparar, String bandol, int numMissils, boolean encriptat, int contrasenya) {
+        super(matricula, marca, model, tripulants, coordenades, alcada, autonomia, rumb, velocitat, velocitatMaxima, motor, trenAterratge, accelerar);
+        this.distanciaMaxDisparar = distanciaMaxDisparar;
+        this.bandol = bandol;
+        this.numMissils = numMissils;
+        this.encriptat = encriptat;
+        this.contrasenya = contrasenya;
     }
 
     // Afageix tants missils com s'indiquin
