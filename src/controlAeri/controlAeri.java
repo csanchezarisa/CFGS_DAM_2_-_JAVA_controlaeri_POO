@@ -859,7 +859,7 @@ public class controlAeri {
     // Prepara la taula amb la informació
     private String[][] muntarTaula() {
 
-        String[][] taula = new String[14][avions.size() + 1];
+        String[][] taula = new String[15][avions.size() + 1];
 
         // Registra tots els camps de la primera columna de la taula
         for (int i = 0; i < taula.length; i++) {
@@ -919,6 +919,10 @@ public class controlAeri {
 
                 case 13:
                     textPerIntroduir = textPerIntroduir + "Destí\t\t\t";
+                    break;
+
+                case 14:
+                    textPerIntroduir = textPerIntroduir + "Bàndol\t\t\t";
                     break;
 
             }
@@ -1056,6 +1060,14 @@ public class controlAeri {
                             if (avions.get(columna - 1) instanceof avioComercial) {
                                 textPerIntroduir = avions.get(columna - 1).getDesti();
                             }
+                        }
+                        textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
+                        break;
+
+                    case 14:
+                        // Bàndol
+                        if (avions.get(columna - 1) instanceof avioCombat) {
+                            textPerIntroduir = avions.get(columna - 1).getBandol();
                         }
                         textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
                         break;
