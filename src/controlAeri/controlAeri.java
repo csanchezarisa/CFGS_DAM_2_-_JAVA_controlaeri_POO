@@ -948,13 +948,19 @@ public class controlAeri {
 
                     case 2:
                         // Marca
-                        textPerIntroduir = avions.get(columna - 1).getMarca();
+                        if (avions.get(columna - 1).isEncriptat())
+                            textPerIntroduir = "ENCRIPTAT";
+                        else
+                            textPerIntroduir = avions.get(columna - 1).getMarca();
                         textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
                         break;
 
                     case 3:
                         // Model
-                        textPerIntroduir = avions.get(columna - 1).getModel();
+                        if (avions.get(columna - 1).isEncriptat())
+                            textPerIntroduir = "ENCRIPTAT";
+                        else
+                            textPerIntroduir = avions.get(columna - 1).getModel();
                         textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
                         break;
 
@@ -966,60 +972,90 @@ public class controlAeri {
 
                     case 5:
                         // X
-                        textPerIntroduir = String.valueOf(avions.get(columna - 1).getCoordenadaX());
+                        if (avions.get(columna - 1).isEncriptat())
+                            textPerIntroduir = "ENCRIPTAT";
+                        else
+                            textPerIntroduir = String.valueOf(avions.get(columna - 1).getCoordenadaX());
                         textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
                         break;
 
                     case 6:
                         // Y
-                        textPerIntroduir = String.valueOf(avions.get(columna - 1).getCoordenadaY());
+                        if (avions.get(columna - 1).isEncriptat())
+                            textPerIntroduir = "ENCRIPTAT";
+                        else
+                            textPerIntroduir = String.valueOf(avions.get(columna - 1).getCoordenadaY());
                         textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
                         break;
 
                     case 7:
                         // Alçada
-                        textPerIntroduir = String.valueOf(avions.get(columna - 1).getAlcada());
+                        if (avions.get(columna - 1).isEncriptat())
+                            textPerIntroduir = "ENCRIPTAT";
+                        else
+                            textPerIntroduir = String.valueOf(avions.get(columna - 1).getAlcada());
                         textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
                         break;
 
                     case 8:
                         // Velocitat
-                        textPerIntroduir = String.valueOf(avions.get(columna - 1).getVelocitat());
+                        if (avions.get(columna - 1).isEncriptat())
+                            textPerIntroduir = "ENCRIPTAT";
+                        else
+                            textPerIntroduir = String.valueOf(avions.get(columna - 1).getVelocitat());
                         textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
                         break;
 
                     case 9:
                         // Tren aterratge
-                        textPerIntroduir = (avions.get(columna - 1).isTrenAterratge()) ? "ON" : "OFF";
+                        if (avions.get(columna - 1).isEncriptat())
+                            textPerIntroduir = "ENCRIPTAT";
+                        else
+                            textPerIntroduir = (avions.get(columna - 1).isTrenAterratge()) ? "ON" : "OFF";
                         textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
                         break;
 
                     case 10:
                         // Motor
-                        textPerIntroduir = (avions.get(columna - 1).isMotor()) ? "ON" : "OFF";
+                        if (avions.get(columna - 1).isEncriptat())
+                            textPerIntroduir = "ENCRIPTAT";
+                        else
+                            textPerIntroduir = (avions.get(columna - 1).isMotor()) ? "ON" : "OFF";
                         textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
                         break;
 
                     case 11:
                         // Missils
-                        if (avions.get(columna - 1) instanceof avioCombat) {
-                            textPerIntroduir = String.valueOf(avions.get(columna - 1).getMissils());
+                        if (avions.get(columna - 1).isEncriptat())
+                            textPerIntroduir = "ENCRIPTAT";
+                        else {
+                            if (avions.get(columna - 1) instanceof avioCombat) {
+                                textPerIntroduir = String.valueOf(avions.get(columna - 1).getMissils());
+                            }
                         }
                         textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
                         break;
 
                     case 12:
                         // Origen
-                        if (avions.get(columna - 1) instanceof avioComercial) {
-                            textPerIntroduir = avions.get(columna - 1).getOrigen();
+                        if (avions.get(columna - 1).isEncriptat())
+                            textPerIntroduir = "ENCRIPTAT";
+                        else {
+                            if (avions.get(columna - 1) instanceof avioComercial) {
+                                textPerIntroduir = avions.get(columna - 1).getOrigen();
+                            }
                         }
                         textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
                         break;
 
                     case 13:
                         // Destí
-                        if (avions.get(columna - 1) instanceof avioComercial) {
-                            textPerIntroduir = avions.get(columna - 1).getDesti();
+                        if (avions.get(columna - 1).isEncriptat())
+                            textPerIntroduir = "ENCRIPTAT";
+                        else {
+                            if (avions.get(columna - 1) instanceof avioComercial) {
+                                textPerIntroduir = avions.get(columna - 1).getDesti();
+                            }
                         }
                         textPerIntroduir = textPerIntroduir + "\t".repeat(numTabulacions(textPerIntroduir.length() + 1));
                         break;
