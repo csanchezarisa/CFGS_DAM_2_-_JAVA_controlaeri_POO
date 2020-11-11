@@ -265,8 +265,8 @@ public class avio {
     }
 
     // SETTERS protegits per poder utilitzar-los en les clases heretades
-    protected void setMatricula(String matricula) {
-        this.matricula = matricula;
+    protected void setMarca(String marca) {
+        this.marca = marca;
     }
 
     protected void setModel(String model) {
@@ -275,11 +275,6 @@ public class avio {
 
     protected void setTripulants(int tripulants) {
         this.tripulants = tripulants;
-    }
-
-    protected void setCoordenades(int x, int y) {
-        this.coordenades.setX(x);
-        this.coordenades.setY(y);
     }
 
     protected void setAlcada(int alcada) {
@@ -300,5 +295,27 @@ public class avio {
 
     protected void setVelocitatMaxima(int velocitatMaxima) {
         this.velocitatMaxima = velocitatMaxima;
+    }
+
+    protected void setCoordenades(int x, int y) {
+        this.coordenades.setX(x);
+        this.coordenades.setY(y);
+    }
+
+    // GETTERS protegits per poder utilitzar-los en les clases heretades
+    protected int getTripulants() {
+        return tripulants;
+    }
+
+    protected int getAutonomia() {
+        return autonomia;
+    }
+
+    protected int getRumb() {
+        return rumb;
+    }
+
+    protected int getVelocitatMaxima() {
+        return velocitatMaxima;
     }
 }

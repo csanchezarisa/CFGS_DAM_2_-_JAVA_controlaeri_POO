@@ -115,17 +115,81 @@ public class avioCombat extends avio {
         contrasenya = Integer.parseInt(contrasenyaText);
 
         // Variables que s'usaran per emmagatzemar els Strings dels atributs antics i dels que es generaran nous
-        String nouAtribut = "";
-        String atributAntic = "";
+        String nouAtributString = "";
+        String atributAnticString = "";
+        int nouAtributInt = 0;
+        int atributAnticInt = 0;
 
-        atributAntic = getModel();
-
-        for (int index = 0; index < atributAntic.length(); index++) {
-            int lletraNumerica = ((int) atributAntic.charAt(index)) + contrasenya;
-            nouAtribut = nouAtribut + ((char) lletraNumerica);
+        // Xifrar model
+        atributAnticString = getModel();
+        for (int index = 0; index < atributAnticString.length(); index++) {
+            int lletraNumerica = ((int) atributAnticString.charAt(index)) + contrasenya;
+            nouAtributString = nouAtributString + ((char) lletraNumerica);
         }
+        this.setModel(nouAtributString);
 
-        this.setModel(nouAtribut);
+        // Xifrar marca
+        atributAnticString = getMarca();
+        nouAtributString = "";
+        for (int index = 0; index < atributAnticString.length(); index++) {
+            int lletraNumerica = ((int) atributAnticString.charAt(index)) + contrasenya;
+            nouAtributString = nouAtributString + ((char) lletraNumerica);
+        }
+        this.setMarca(nouAtributString);
+
+        // Xifrar tripulants
+        atributAnticInt = this.getTripulants();
+        nouAtributInt = atributAnticInt + contrasenya;
+        this.setTripulants(nouAtributInt);
+
+        // Xifrar coodenades
+        atributAnticInt = this.getCoordenadaX();
+        nouAtributInt = atributAnticInt + contrasenya;
+        int x = nouAtributInt;
+        atributAnticInt = this.getCoordenadaY();
+        nouAtributInt = atributAnticInt + contrasenya;
+        int y = nouAtributInt;
+        this.setCoordenades(x, y);
+
+        // Xifrar tripulants
+        atributAnticInt = this.getTripulants();
+        nouAtributInt = atributAnticInt + contrasenya;
+        this.setTripulants(nouAtributInt);
+
+        // Xifrar alçada
+        atributAnticInt = this.getAlcada();
+        nouAtributInt = atributAnticInt + contrasenya;
+        this.setAlcada(nouAtributInt);
+
+        // Xifrar autonomia
+        atributAnticInt = this.getAutonomia();
+        nouAtributInt = atributAnticInt + contrasenya;
+        this.setAutonomia(nouAtributInt);
+
+        // Xifrar rumb
+        atributAnticInt = this.getRumb();
+        nouAtributInt = atributAnticInt + contrasenya;
+        this.setRumb(nouAtributInt);
+
+        // Xifrar velocitat
+        atributAnticInt = this.getVelocitat();
+        nouAtributInt = atributAnticInt + contrasenya;
+        this.setVelocitat(nouAtributInt);
+
+        // Xifrar velocitat màxima
+        atributAnticInt = this.getVelocitatMaxima();
+        nouAtributInt = atributAnticInt + contrasenya;
+        this.setVelocitatMaxima(nouAtributInt);
+
+        // Xifrar distància màxima de dispar
+        atributAnticInt = this.distanciaMaxDisparar;
+        nouAtributInt = atributAnticInt + contrasenya;
+        this.distanciaMaxDisparar = nouAtributInt;
+
+        // Xifrar número de missils
+        atributAnticInt = this.numMissils;
+        nouAtributInt = atributAnticInt + contrasenya;
+        this.numMissils = nouAtributInt;
     }
 
     // Desxifra l'avió si troba la contrasenya
@@ -174,17 +238,81 @@ public class avioCombat extends avio {
         contrasenya = Integer.parseInt(contrasenyaText);
 
         // Variables que s'usaran per emmagatzemar els Strings dels atributs antics i dels que es generaran nous
-        String nouAtribut = "";
-        String atributAntic = "";
+        String nouAtributString = "";
+        String atributAnticString = "";
+        int nouAtributInt = 0;
+        int atributAnticInt = 0;
 
-        atributAntic = getModel();
-
-        for (int index = 0; index < atributAntic.length(); index++) {
-            int lletraNumerica = ((int) atributAntic.charAt(index)) - contrasenya;
-            nouAtribut = nouAtribut + ((char) lletraNumerica);
+        // Desxifrar model
+        atributAnticString = getModel();
+        for (int index = 0; index < atributAnticString.length(); index++) {
+            int lletraNumerica = ((int) atributAnticString.charAt(index)) - contrasenya;
+            nouAtributString = nouAtributString + ((char) lletraNumerica);
         }
+        this.setModel(nouAtributString);
 
-        this.setModel(nouAtribut);
+        // Desxifrar marca
+        atributAnticString = getMarca();
+        nouAtributString = "";
+        for (int index = 0; index < atributAnticString.length(); index++) {
+            int lletraNumerica = ((int) atributAnticString.charAt(index)) - contrasenya;
+            nouAtributString = nouAtributString + ((char) lletraNumerica);
+        }
+        this.setMarca(nouAtributString);
+
+        // Desxifrar tripulants
+        atributAnticInt = this.getTripulants();
+        nouAtributInt = atributAnticInt - contrasenya;
+        this.setTripulants(nouAtributInt);
+
+        // Desxifrar coodenades
+        atributAnticInt = this.getCoordenadaX();
+        nouAtributInt = atributAnticInt - contrasenya;
+        int x = nouAtributInt;
+        atributAnticInt = this.getCoordenadaY();
+        nouAtributInt = atributAnticInt - contrasenya;
+        int y = nouAtributInt;
+        this.setCoordenades(x, y);
+
+        // Desxifrar tripulants
+        atributAnticInt = this.getTripulants();
+        nouAtributInt = atributAnticInt - contrasenya;
+        this.setTripulants(nouAtributInt);
+
+        // Desxifrar alçada
+        atributAnticInt = this.getAlcada();
+        nouAtributInt = atributAnticInt - contrasenya;
+        this.setAlcada(nouAtributInt);
+
+        // Desxifrar autonomia
+        atributAnticInt = this.getAutonomia();
+        nouAtributInt = atributAnticInt - contrasenya;
+        this.setAutonomia(nouAtributInt);
+
+        // Desxifrar rumb
+        atributAnticInt = this.getRumb();
+        nouAtributInt = atributAnticInt - contrasenya;
+        this.setRumb(nouAtributInt);
+
+        // Desxifrar velocitat
+        atributAnticInt = this.getVelocitat();
+        nouAtributInt = atributAnticInt - contrasenya;
+        this.setVelocitat(nouAtributInt);
+
+        // Desxifrar velocitat màxima
+        atributAnticInt = this.getVelocitatMaxima();
+        nouAtributInt = atributAnticInt - contrasenya;
+        this.setVelocitatMaxima(nouAtributInt);
+
+        // Desxifrar distància màxima de dispar
+        atributAnticInt = this.distanciaMaxDisparar;
+        nouAtributInt = atributAnticInt - contrasenya;
+        this.distanciaMaxDisparar = nouAtributInt;
+
+        // Desxifrar número de missils
+        atributAnticInt = this.numMissils;
+        nouAtributInt = atributAnticInt - contrasenya;
+        this.numMissils = nouAtributInt;
 
     }
 
