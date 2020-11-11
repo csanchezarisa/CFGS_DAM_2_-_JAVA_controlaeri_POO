@@ -252,15 +252,53 @@ public class avio {
         return 0;
     }
 
-    public void xifrar(String contrasenya) {
-
+    public boolean xifrar(int contrasenya) {
+        return false;
     }
 
-    public void desxifrar(String contrasenya) {
-
+    public boolean desxifrar(int contrasenya) {
+        return false;
     }
 
     public boolean isEncriptat() {
         return false;
+    }
+
+    // SETTERS protegits per poder utilitzar-los en les clases heretades
+    protected void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    protected void setModel(String model) {
+        this.model = model;
+    }
+
+    protected void setTripulants(int tripulants) {
+        this.tripulants = tripulants;
+    }
+
+    protected void setCoordenades(int x, int y) {
+        this.coordenades.setX(x);
+        this.coordenades.setY(y);
+    }
+
+    protected void setAlcada(int alcada) {
+        this.alcada = alcada;
+    }
+
+    protected void setAutonomia(int autonomia) {
+        this.autonomia = autonomia;
+    }
+
+    protected void setRumb(int rumb) {
+        this.rumb = rumb;
+    }
+
+    protected void setVelocitat(int velocitat) {
+        this.velocitat = velocitat;
+    }
+
+    protected void setVelocitatMaxima(int velocitatMaxima) {
+        this.velocitatMaxima = velocitatMaxima;
     }
 }

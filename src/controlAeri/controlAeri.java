@@ -1122,14 +1122,150 @@ public class controlAeri {
 
 
     /* .: 4. XIFRAR AVIONS DE COMBAT BÀNDOL AMIC :. */
-    private void menuXifrarAvions() {
+    private void menuXifrarAvions() throws InterruptedException {
 
+         netejarPantalla();
+         resetTeclat();
+
+         String bandol;
+         String contrasenya;
+
+         // L'usuari introdueix un bàndol. Si hi ha cap problema se'n va
+         try {
+
+             System.out.println("Introdueix el bàndol que vols xifrar:");
+             bandol = teclat.nextLine().toUpperCase();
+
+         }
+         catch (Exception e) {
+
+             System.out.println(Colors.RED + "NO S'HAN POGUT INTRODUIR EL BÀNDOL");
+             System.out.println("MOTIU: " + e + Colors.RESET);
+             atura();
+             return;
+
+         }
+        resetTeclat();
+        // L'usuari introdueix una contrasenya. Si hi ha cap problema se'n va
+         try {
+
+             System.out.println("Introdueix la contrasenya per desxifrar:");
+             contrasenya = teclat.nextLine();
+
+         }
+         catch (Exception e) {
+
+             System.out.println(Colors.RED + "NO S'HAN POGUT INTRODUIR LA CONTRASENYA");
+             System.out.println("MOTIU: " + e + Colors.RESET);
+             atura();
+             return;
+
+         }
+
+         // Es fa el hash de la contrasenya
+         int hashContrasenya = contrasenya.hashCode();
+
+         int avionsXifrats = xifrarAvions(hashContrasenya, bandol);
+
+         if (avionsXifrats > 0) {
+             System.out.println("S'han xifrat " + avionsXifrats + " avions.");
+             atura();
+         }
+         else {
+             mostrarError("NO S'HA XIFRAT CAP AVIÓ");
+         }
+
+    }
+
+    private int xifrarAvions(int contrasenyaHashejada, String bandol) {
+
+        int avionsXifrats = 0;
+
+        // Recòrre els avions, compara el bàndol, si és correcte, executa el mètode de xifrat. Si s'executa correctament, incrementa 1
+        for (avio avio : avions) {
+            if (avio.getBandol().equals(bandol)) {
+                if (avio.xifrar(contrasenyaHashejada)) {
+                    avionsXifrats++;
+                }
+
+            }
+        }
+
+        return avionsXifrats;
     }
 
 
     /* .: 5. DESXIFRAR AVIONS DE COMBAT BÀNDOL AMIC :. */
-    private void menuDesxifrarAvions() {
+    private void menuDesxifrarAvions() throws InterruptedException {
 
+        netejarPantalla();
+        resetTeclat();
+
+        String bandol;
+        String contrasenya;
+
+        // L'usuari introdueix un bàndol. Si hi ha cap problema se'n va
+        try {
+
+            System.out.println("Introdueix el bàndol que vols desxifrar:");
+            bandol = teclat.nextLine().toUpperCase();
+
+        }
+        catch (Exception e) {
+
+            System.out.println(Colors.RED + "NO S'HAN POGUT INTRODUIR EL BÀNDOL");
+            System.out.println("MOTIU: " + e + Colors.RESET);
+            atura();
+            return;
+
+        }
+
+        // L'usuari introdueix la contrasenya de xifrat
+        try {
+
+            System.out.println("Introdueix la contrasenya per desxifrar:");
+            contrasenya = teclat.nextLine();
+
+        }
+        catch (Exception e) {
+
+            System.out.println(Colors.RED + "NO S'HAN POGUT INTRODUIR LA CONTRASENYA");
+            System.out.println("MOTIU: " + e + Colors.RESET);
+            atura();
+            return;
+
+        }
+
+        // Es fa el hash de la contrasenya
+        int hashContrasenya = contrasenya.hashCode();
+
+        int avionsDesxifrats = desxifrarAvions(hashContrasenya, bandol);
+
+        if (avionsDesxifrats > 0) {
+            System.out.println("S'han desxifrat " + avionsDesxifrats + " avions.");
+            atura();
+        }
+        else {
+            mostrarError("NO S'HA DESXIFRAT CAP AVIÓ");
+        }
+
+    }
+
+    private int desxifrarAvions(int contrasenyaHashejada, String bandol) {
+
+        int avionsDesxifrats = 0;
+
+        // Recòrre els avions, compara el bàndol, si és correcte, executa el mètode de desxifrat. Si s'executa correctament, incrementa 1
+        for (avio avio : avions) {
+            if (avio.getBandol().equals(bandol)) {
+                if (avio.desxifrar(contrasenyaHashejada)) {
+                    avionsDesxifrats++;
+                }
+
+            }
+        }
+
+        return avionsDesxifrats;
     }
 
 
