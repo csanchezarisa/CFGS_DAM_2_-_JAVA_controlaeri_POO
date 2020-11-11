@@ -193,11 +193,11 @@ public class controlAeri {
 
             System.out.println(Colors.WHITE_BACKGROUND + Colors.BLACK + "Introdueix la marca de l'avió" + Colors.RESET);
             String marca = teclat.nextLine().toUpperCase();
-            marca = (marca.length() > 7) ? marca.substring(0, 7) : marca;
+            marca = (marca.length() > 12) ? marca.substring(0, 12) : marca;
 
             System.out.println(Colors.WHITE_BACKGROUND + Colors.BLACK + "Introdueix el model de l'avió" + Colors.RESET);
             String model = teclat.nextLine().toUpperCase();
-            model = (model.length() > 7) ? model.substring(0, 7) : model;
+            model = (model.length() > 12) ? model.substring(0, 12) : model;
 
             System.out.println(Colors.WHITE_BACKGROUND + Colors.BLACK + "Introdueix la matrícula de l'avió" + Colors.RESET);
             String matricula = teclat.nextLine().toUpperCase();
@@ -257,11 +257,11 @@ public class controlAeri {
 
             System.out.println(Colors.WHITE_BACKGROUND + Colors.BLACK + "Introdueix la marca de l'avió" + Colors.RESET);
             String marca = teclat.nextLine().toUpperCase();
-            marca = (marca.length() > 7) ? marca.substring(0, 7) : marca;
+            marca = (marca.length() > 12) ? marca.substring(0, 12) : marca;
 
             System.out.println(Colors.WHITE_BACKGROUND + Colors.BLACK + "Introdueix el model de l'avió" + Colors.RESET);
             String model = teclat.nextLine().toUpperCase();
-            model = (model.length() > 7) ? model.substring(0, 7) : model;
+            model = (model.length() > 12) ? model.substring(0, 12) : model;
 
             System.out.println(Colors.WHITE_BACKGROUND + Colors.BLACK + "Introdueix la matrícula de l'avió" + Colors.RESET);
             String matricula = teclat.nextLine().toUpperCase();
@@ -272,7 +272,7 @@ public class controlAeri {
 
             System.out.println(Colors.WHITE_BACKGROUND + Colors.BLACK + "Introdueix el bàndol de l'avió" + Colors.RESET);
             String bandol = teclat.nextLine().toUpperCase();
-            bandol = (bandol.length() > 7) ? bandol.substring(0, 7) : bandol;
+            bandol = (bandol.length() > 12) ? bandol.substring(0, 12) : bandol;
 
             System.out.println(Colors.WHITE_BACKGROUND + Colors.BLACK + "Introdueix els tripulants de l'avió" + Colors.RESET);
             int tripulants = teclat.nextInt();
