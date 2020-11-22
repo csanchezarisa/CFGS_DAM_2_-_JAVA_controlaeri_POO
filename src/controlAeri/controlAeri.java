@@ -31,7 +31,7 @@ public class controlAeri {
 
     /* .: 1. MENU PRINCIPAL :. */
     // Metode principal del programa. Mostra el menu principal i permet excollir la primera opcio. A més, sempre que s'hi accedeix actualitza les dades del controlador, avisant dels problemes que ha hagut
-    public void launch() throws InterruptedException {
+    private void launch() throws InterruptedException {
 
         char seleccioUsuari = '0';
 
